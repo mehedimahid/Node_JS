@@ -1,0 +1,9 @@
+{
+  "testfile": "from writeFile.js and tutorial number 2.8",
+  "name": "Mehedi Hasan",
+  "email": "mehedi@gmail.com",
+  "address": {
+    "city": "kurigram",
+    "country": "BD"
+  }
+}
