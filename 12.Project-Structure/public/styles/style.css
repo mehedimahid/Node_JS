@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body{
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 15px;
+  background: rgb(245, 245, 245);
+}
+
+.my-container{
+  min-height: 500px;
+  padding-top: 50px;
+  background: #ffffff;
+}
+
+footer {
+  color: #fff;
+  background: #222222;
+  text-align: center;
+  padding: 5px 0px;
+}
