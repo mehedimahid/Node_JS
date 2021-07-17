@@ -1,8 +1,13 @@
 const express = require('express')
 const morgan = require('morgan')
-//Import Routes
+const mongoose = require('mongoose')
 
-const authRoutes= require('./routes/authRoutes')
+//Import Routes
+const authRoutes = require('./routes/authRoutes')
+
+//Playground Routes
+
+
 const app = express()
 //Set View Engine
 app.set('view engine', 'ejs')
@@ -13,20 +18,31 @@ app.set('views', 'views')
 const middleware = [
   morgan('dev'),
   express.static('public'),
-  express.urlencoded({extended: true}),
+  express.urlencoded({ extended: true }),
   express.json()
 ]
 
 app.use(middleware)
 app.use('/auth', authRoutes)
 
-app.get('/', (req, res) =>{
+
+app.get('/', (req, res) => {
   res.json({
-    message : 'Hello World'
+    message: 'Hello World'
   })
 })
 const PORT = process.env.PORT || 8080
 
-app.listen(PORT, () =>{
-  console.log(`Server is Running on PORT ${PORT}`)
-})
+mongoose.connect(`mongodb+srv://MHMahid:mahid@2000@cluster0.1vuzk.mongodb.net/Exp-blog?retryWrites=true&w=majority`, {
+    useNewUrlParser: true, useUnifiedTopology: true
+  })
+  .then(() =>{
+    app.listen(PORT, () => {
+      console.log('Database Connected')
+      console.log(`Server is Running on PORT ${PORT}`)
+    })
+  })
+  .catch(e =>{
+    return console.log(e)
+  })
+
