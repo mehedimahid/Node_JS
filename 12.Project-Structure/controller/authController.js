@@ -42,17 +42,19 @@ exports.signupPostController = async (req, res, next) => {
 }
 
 exports.loginGetController = (req, res, next) => {
+  console.log(req.session.isLoggedIn, req.session.user)
   res.render('pages/auth/login', { title: 'login To Your Account', error: {}})
 }
 
 exports.loginPostController = async (req, res, next) => {
   let { email, password } = req.body
+
   let errors = validationResult(req).formatWith(errorFormatter)
   if (!errors.isEmpty()) {
     return res.render('pages/auth/login', 
     { 
       title: 'Logged in to your account',
-      error: errors.mapped(),
+      error: errors.mapped()
     })
   }
 
@@ -71,8 +73,15 @@ exports.loginPostController = async (req, res, next) => {
       })
     }
 
-    console.log('Successfully Logged In')
-    res.render('pages/auth/login', { title: 'login To Your Account' })
+    req.session.isLoggedIn = true
+    req.session.user = user
+    req.session.save( err =>{
+      if(err){
+        console.log(err)
+        return next(err)
+      }
+      res.redirect('/dashboard')
+    })
 
   } catch (e) {
     console.log(e)
@@ -80,6 +89,12 @@ exports.loginPostController = async (req, res, next) => {
   }
 }
 
-exports.logoutController = (req, res, nexr) => {
-
+exports.logoutController = (req, res, next) => {
+  req.session.destroy(err =>{
+    if (err) {
+      console.log(err)
+      return next(err)
+    }
+    return res.redirect('/auth/login')
+  })
 }
