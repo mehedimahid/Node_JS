@@ -46,7 +46,6 @@ exports.signupPostController = async (req, res, next) => {
     req.flash('success','User Created  Succesdfully' )
     res.redirect('/auth/login')
   } catch (e) {
-    console.log(e)
     next(e)
   }
 }
@@ -110,7 +109,6 @@ exports.loginPostController = async (req, res, next) => {
     })
 
   } catch (e) {
-    console.log(e)
     next(e)
   }
 }
@@ -118,7 +116,6 @@ exports.loginPostController = async (req, res, next) => {
 exports.logoutController = (req, res, next) => {
   req.session.destroy(err => {
     if (err) {
-      console.log(err)
       return next(err)
     }
     // req.flash('success', 'Successfully Logout')
