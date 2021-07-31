@@ -1,14 +1,20 @@
 const authRoutes = require('./authRoutes')
 const dashboardRoute = require('./dashboardRoute')
 const playgroundRoutes = require('../playground/play')
+const uploadRoutes = require('./uploadRoutes')
+
 const routes = [
   {
     path: '/auth',
-    handler : authRoutes
+    handler: authRoutes
   },
   {
-    path:'/playground',
+    path: '/playground',
     handler: playgroundRoutes
+  },
+  {
+    path: '/uploads',
+    handler: uploadRoutes
   },
   {
     path: '/dashboard',
@@ -24,11 +30,11 @@ const routes = [
   }
 ]
 
-module.exports = app =>{
-  routes.forEach(r=>{
+module.exports = app => {
+  routes.forEach(r => {
     if (r.path === '/') {
       app.get(r.path, r.handler)
-    }else{
+    } else {
       app.use(r.path, r.handler)
     }
   })

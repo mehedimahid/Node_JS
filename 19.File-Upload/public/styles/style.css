@@ -11,7 +11,7 @@ html, body{
 }
 
 .my-container{
-  min-height: 500px;
+  min-height: 600px;
   padding-top: 50px;
   background: #ffffff;
 }
@@ -21,4 +21,12 @@ footer {
   background: #222222;
   text-align: center;
   padding: 5px 0px;
+}
+
+/* p.lead {
+  text-align: center;
+
+} */
+.input-group-text {
+  padding: .75rem .75rem;
 }
