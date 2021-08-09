@@ -1,5 +1,6 @@
 const router = require('express').Router()
-const {isAuthenticated} = require('../middleware/authMiddleware')
+const profileValidator = require('../validetor/dashboard/profileValidator')
+const { isAuthenticated } = require('../middleware/authMiddleware')
 const {
   dashboardGetController,
   createProfileGetContriller,
@@ -8,11 +9,11 @@ const {
   editProfilePostContriller
 } = require('../controller/dashboardController')
 
-router.get('/',isAuthenticated, dashboardGetController)
+router.get('/', isAuthenticated, dashboardGetController)
 
 router.get('/create-profile', isAuthenticated, createProfileGetContriller)
-router.post('/create-profile',isAuthenticated, createProfilePostContriller)
+router.post('/create-profile', isAuthenticated, profileValidator, createProfilePostContriller)
 
 router.get('/edit-profile', isAuthenticated, editProfileGetContriller)
-router.post('/edit-profile',isAuthenticated, editProfilePostContriller)
+router.post('/edit-profile', isAuthenticated, profileValidator, editProfilePostContriller)
 module.exports = router

@@ -11,26 +11,28 @@ const profileSchema = new Schema({
   name: {
     type: String,
     trim: true,
-    maxlength: 30,
+    maxlength: 50,
     required: true
   },
   title: {
     type: String,
     trim: true,
+    required: true,
     maxlength: 100
   },
   bio: {
     type: String,
+    required: true,
     trim: true,
     maxlength: 500
   },
   profilePic: String,
   links: {
-    webside: String,
-    facebook: String,
-    twitter: String,
-    github: String
-  },
+		website: String,
+		facebook: String,
+		twitter: String,
+		github: String
+	},
   posts: [
     {
       type: Schema.Types.ObjectId,
