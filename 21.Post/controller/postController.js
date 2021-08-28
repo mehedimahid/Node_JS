@@ -61,7 +61,8 @@ exports.createPostPostController = async (req, res, next) => {
             { $push: { 'posts': createdPost._id } }
         )
         req.flash('success', 'Post Created Successfully')
-        return res.redirect(`/posts/edit/${createdPost._id}`)
+        // return res.redirect(`/posts/edit/${createdPost._id}`)
+        return res.redirect(`/posts`)
     } catch (e) {
         next(e)
     }
@@ -124,7 +125,8 @@ exports.editPostPotController = async (req, res, next) => {
             { new: true }
         )
         req.flash('success', 'Post Updated Successfully')
-        res.redirect('/posts/edit/' + post._id)
+        // res.redirect('/posts/edit/' + post._id)
+        res.redirect('/posts')
     } catch (e) {
         next(e)
     }

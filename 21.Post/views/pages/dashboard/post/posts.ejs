@@ -2,7 +2,9 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css">
    <div class="container-fluid">
       <div class="row">
-         <div class="col-md-2"></div>
+         <div class="col-md-2">
+            <%- include('../../../partials/sidebar.ejs') %>
+         </div>
          <div class="col-md-9 my-5">
             <div class="card card-body">
                <h5>List Of My Posts</h5>
@@ -13,7 +15,7 @@
                         <a href="/posts/create" class="btn btn-primary btn-sm"> Create Post Now</a>
                      </div>
                      <% } else{ %>
-                        <% for(let post of posts){ %>
+                        <% for(let post of posts.reverse()){ %>
                            <div class="card col-sm-3 m-3">
                               <% if(post.thumbnail){ %>
                                  <img src="<%= post.thumbnail %>" alt="<%= post.title %>" class="card-img-top mt-3">

@@ -9,7 +9,9 @@ html, body{
   font-size: 15px;
   background: rgb(245, 245, 245);
 }
-
+a{
+  text-decoration: none;
+}
 .my-container{
   min-height: 700px;
   padding-top: 50px;
