@@ -40,8 +40,8 @@ exports.likeGetController = async(req, res, next) => {
       let updatedPost = await Post.findById(postId)
       res.status(200).json({
          liked,
-         totalLikes = updatedPost.likes.length,
-         totalDislikes = updatedPost.dislikes.length
+         totalLikes : updatedPost.likes.length,
+         totalDislikes : updatedPost.dislikes.length
       })
 
    } catch (e) {
@@ -91,8 +91,8 @@ exports.disLikesGetController = async(req, res, next) => {
       let updatedPost = await Post.findById(postId)
       res.status(200).json({
          disliked,
-         totalLikes = updatedPost.likes.length,
-         totalDislikes = updatedPost.dislikes.length
+         totalLikes : updatedPost.likes.length,
+         totalDislikes : updatedPost.dislikes.length
       })
 
    } catch (e) {

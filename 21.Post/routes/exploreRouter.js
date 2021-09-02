@@ -3,5 +3,5 @@ const {
    explorerGetController
 } = require('../controller/explorerController')
 
-router.get('/explorer', explorerGetController)
+router.get('/', explorerGetController)
 module.exports = router
