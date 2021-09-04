@@ -1,6 +1,6 @@
 const Profile = require('../../model/Profile')
 
-exports.bookmarksGetController = async (req, re, next) => {
+exports.bookmarksGetController = async (req, res, next) => {
    let { postId } = req.params
 
    if (!req.user) {
