@@ -1,0 +1,174 @@
+<%- include('../../partials/head.ejs') %>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.css">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-2">
+        <%- include('../../partials/sidebar.ejs') %> 
+      </div>
+      <div class="col-md-10">
+        <div class="row">
+          <div class="col-md-8 offset-md-2">
+            <div class="card card-body my-5">
+              <h4>
+                <%= title %>
+              </h4>
+              <div class="profile-pics">
+                <img src="<%= user.profilePics %> " alt="Profile Pic" class="img-thumbnail img-fluid" id="profilePics">
+                <form action="/uploads/profilePics" class="my-2" id="profilePicsForm">
+                  <input type="file" class="form-control-file" id="profilePicsFile" name="profilePics"
+                    accept="image/*">
+                  <input type="button" value="Remove Pics" id="removeProfilePics" class="btn btn-danger btn-sm my-2"
+                    style= " display : <%= user.profilePics.includes('default.png') ? 'none':'block' %>">
+                </form>
+              </div>
+              <div>
+                <form action="/dashboard/edit-profile" method="POST">
+                  <div class="form-group mb-2">
+                    <label for="name">Enter Your Name</label>
+                    <input 
+                      type="text" 
+                      class="form-control <%= error.name ? 'is-invalid' : '' %> "
+                      placeholder="Enter Your Name"
+                      value="<%= profile.name %>" 
+                      name="name" 
+                      id="name">
+                    <div class="invalid-feedback">
+                      <%= error.name %>
+                    </div>
+                  </div>
+
+                  <div class="form-group mb-2">
+                    <label for="email">Enter Your email</label>
+                    <input type="email" class="form-control" placeholder="Enter Your Email" name="email" id="email"
+                      value="<%= user.email %>" disabled>
+                  </div>
+
+                  <div class="form-group mb-2">
+                    <label for="title">Enter A Short Title</label>
+                    <input 
+                      type="text" 
+                      class="form-control <%= error.title ? 'is-invalid': '' %> "
+                      placeholder="Enter A Short Title" 
+                      value="<%= profile.title %>" 
+                      name="title" 
+                      id="title">
+                    <div class="invalid-feedback">
+                      <%= error.title %>
+                    </div>
+                  </div>
+
+                  <div class="form-group mb-2">
+                    <label for="bio">Enter A Short Bio </label>
+                    <textarea  
+                      type="text" 
+                      class="form-control <%= error.bio ? 'is-invalid' : '' %> "
+                      placeholder="Enter A Short Bio" 
+                      name="bio" 
+                      id="bio"><%= profile.bio %></textarea>
+                    <div class="invalid-feedback">
+                      <%= error.bio %>
+                    </div>
+                  </div>
+
+                  <div>
+                    <p class="lead">Your Social Link</p>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text1">
+                          <i class='fab fa-chrome'></i>
+                        </span>
+                      </div>
+                      <input 
+                        type="text" 
+                        class="form-control <%= error.website ? 'is-invalid' : '' %> "
+                        placeholder="Website Link" 
+                        value="<%= profile.links.website %>"
+                        name="website">
+                      <div class="invalid-feedback">
+                        <%= error.website %>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text1">
+                          <i class="fab fa-facebook-f"></i>
+                        </span>
+                      </div>
+                      <input 
+                        type="text"  
+                        class="form-control <%= error.facebook ? 'is-invalid': '' %> "
+                        placeholder="Facebook Link" 
+                        value="<%= profile.links.facebook %>"
+                        name="facebook">
+                      <div class="invalid-feedback">
+                        <%= error.facebook %>
+                      </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text1">
+                          <i class="fab fa-twitter-square"></i>
+                        </span>
+                      </div>
+                      <input 
+                        type="text"  
+                        class="form-control <%= error.twitter ? 'is-invalid' : '' %> " 
+                        value="<%= profile.links.twitter %>"
+                        placeholder="Twitter Link" 
+                        name="twitter">
+                        <div class="invalid-feedback">
+                          <%= error.twitter %> 
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text1">
+                          <i class="fab fa-github-square"></i>
+                        </span>
+                      </div>
+                      <input 
+                        type="text" 
+                        class="form-control <%= error.github ? 'is-invalid': '' %> " 
+                        placeholder="Github Link" 
+                        value="<%= profile.links.github %>"
+                        name="github">
+                        <div class="invalid-feedback">
+                          <%= error.github %> 
+                        </div>
+                    </div>
+                  </div>
+                  <input type="submit" class="btn btn-primary" value="Create Profile">
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="crop-modal" class="modal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Resize Your Image</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="cropped-image"></div>
+          </div>
+          <div class="modal-footer">
+            <button id="upload-image" type="button" class="btn btn-primary">Upload image</button>
+            <button id="cancel-cropping" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <%- include('../../partials/footer.ejs') %>
+      <script src="/scripts/profilePicsUpload.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.5/croppie.js"></script>
+
+      </body>
+
+      </html>
