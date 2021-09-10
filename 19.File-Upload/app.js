@@ -54,4 +54,3 @@ mongoose.connect(MONGODB_URI, {
   .catch(e => {
     return console.log(e)
   })
-

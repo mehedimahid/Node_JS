@@ -14,8 +14,8 @@ const {
    bookmarksGetController
 } = require('../controllers/bookmarkController')
 
-router.post('/comment/:postId', isAuthenticated, commentPostController)
-router.post('/comment/replies/:commentId', isAuthenticated, replyCommentPostController)
+router.post('/comments/:postId', isAuthenticated, commentPostController)
+router.post('/comments/replies/:commentId', isAuthenticated, replyCommentPostController)
 
 router.get('/likes/:postId', isAuthenticated, likeGetController)
 router.get('/dislikes/:postId', isAuthenticated, disLikesGetController)

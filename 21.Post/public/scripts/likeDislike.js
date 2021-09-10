@@ -24,7 +24,7 @@ window.onload = function () {
 
    dislikeBtn.addEventListener('click', function (e) {
       let postId = likeBtn.dataset.post
-
+      console.log(postId)
       reqlikeDislike('dislikes', postId)
          .then(res => res.json())
          .then(data => {
@@ -55,5 +55,6 @@ window.onload = function () {
       })
 
       return fetch(req)
+      
    }
 }

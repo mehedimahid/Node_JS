@@ -91,18 +91,19 @@ exports.singlePostGetController = async (req, res, next) => {
 
    try {
       let post = await Post.findById(postId)
+         .populate('author', 'username profilePics')
          .populate({
             path: 'comments',
             populate: {
                path: 'user',
-               select: 'username, profilePics'
+               select: 'username profilePics'
             }
          })
          .populate({
             path: 'comments',
             papulate: {
                path: 'replies.user',
-               select: 'username, profilePics'
+               select: 'username profilePics'
             }
          })
       if (!post) {
@@ -118,7 +119,7 @@ exports.singlePostGetController = async (req, res, next) => {
             bookmarks = profile.bookmarks
          }
       }
-
+// console.log(post)
       res.render('pages/explorer/singlePage', {
          title: post.title,
          flashMessage: Flash.getMessage(req),
