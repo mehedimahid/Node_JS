@@ -5,7 +5,7 @@ exports.commentPostController = async (req, res, next) => {
 
    let { postId } = req.params
    let { body } = req.body
-
+   
    if (!req.user) {
       return res.status(403).json({
          error: 'You are not an authenticated user'
@@ -22,9 +22,13 @@ exports.commentPostController = async (req, res, next) => {
    try {
       let createComment = await comment.save()
 
-      await Post.findOneAndUpdate(
-         { _id: postId },
-         { $push: { 'comments': createComment._id } }
+      await Post.findOneAndUpdate({
+         _id: postId
+      }, {
+         $push: {
+            'comments': createComment._id
+         }
+      }
       )
 
       let commentJSON = await Comment.findById(createComment._id).populate({
@@ -41,7 +45,7 @@ exports.commentPostController = async (req, res, next) => {
    }
 }
 
-exports.replyCommentPostController = async(req, res, next) => {
+exports.replyCommentPostController = async (req, res, next) => {
    let { commentId } = req.params
    let { body } = req.body
 

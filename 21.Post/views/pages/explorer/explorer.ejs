@@ -22,32 +22,32 @@
                      <% for(let post of posts){ %>
                         <div class="card card-body mb-3">
                            <% if(post.thumbnail) {%>
-                              <img class="img-fluid mb-2" src="<%= post.thumbnail %> " alt="">
-                              <% } %>
-                                 <a href="/explorer/<%= post._id %>" style="color: #222222;">
-                                    <h5>
-                                       <%= post.title%>
-                                    </h5>
-                                    <p class="mb-4">
-                                       <%= truncate(post.body) %>
-                                    </p>
-                                 </a>
-                                 <div class="d-flex">
-                                    <small>
-                                       <%= moment(post.createdAt) %> ,
-                                          Post By <%= post.author.username %>,
-                                             <%= post.readTime %>
-                                    </small>
-                                    <% if(user){ %>
-                                       <span class="ms-auto bookmark" data-post="<%= post._id %> ">
-                                          <% if(bookmarks.includes(post._id)){ %>
-                                             <i class="fas fa-bookmark"></i>
-                                             <% }else{ %>
-                                                <i class="far fa-bookmark"></i>
-                                                <% } %>
-                                       </span>
-                                    <% } %>
-                                 </div>
+                              <img class="img-fluid mb-2" src="<%= post.thumbnail %>" alt="">
+                           <% } %>
+                              <a href="/explorer/<%= post._id %>" style="color: #222222;">
+                                 <h5>
+                                    <%= post.title%>
+                                 </h5>
+                                 <p class="mb-4">
+                                    <%= truncate(post.body) %>
+                                 </p>
+                              </a>
+                              <div class="d-flex">
+                                 <small>
+                                    <%= moment(post.createdAt) %> ,
+                                    Post By <%= post.author.username %>,
+                                    <%= post.readTime %>
+                                 </small>
+                                 <% if(user){ %>
+                                    <span class="ms-auto bookmark" data-post="<%= post._id %>">
+                                       <% if(bookmarks.includes(post._id)){ %>
+                                          <i class="fas fa-bookmark"></i>
+                                       <% }else{ %>
+                                          <i class="far fa-bookmark"></i>
+                                       <% } %>
+                                    </span>
+                                 <% } %>
+                              </div>
                         </div>
                   <% } %>
                <% } %>
@@ -66,23 +66,23 @@
                               <%= i %>
                            </a>
                         </li>
-                        <% } %>
-                           <li class="page-item <%= currentPage===totalPage ? 'disabled' : ''%>">
-                              <a class="page-link" href="<%= `/explorer?filter=${filter}&page=${currentPage + 1}` %>">
-                                 Next
-                              </a>
-                           </li>
+                     <% } %>
+                     <li class="page-item <%= currentPage===totalPage ? 'disabled' : ''%>">
+                        <a class="page-link" href="<%= `/explorer?filter=${filter}&page=${currentPage + 1}` %>">
+                           Next
+                        </a>
+                     </li>
                   </ul>
                </nav>
-               <% } %>
+            <% } %>
          </div>
       </div>
    </div>
 
    <%- include('../../partials/footer.ejs') %>
-<script src="/scripts/bookmarks.js">
+<script src="/scripts/bookmarks.js"></script>
    
-</script>
-      </body>
 
-      </html>
+</body>
+
+</html>

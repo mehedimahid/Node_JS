@@ -24,7 +24,6 @@ window.onload = function () {
 
    dislikeBtn.addEventListener('click', function (e) {
       let postId = likeBtn.dataset.post
-      console.log(postId)
       reqlikeDislike('dislikes', postId)
          .then(res => res.json())
          .then(data => {
@@ -47,14 +46,15 @@ window.onload = function () {
       let headers = new Headers()
       headers.append('Accept', 'Application/JSON')
       headers.append('Content-type', 'Application/JSON')
-
+   
       let req = new Request(`/api/${type}/${postId}`, {
          method: 'GET',
          mode: "cors",
          headers
       })
-
+   
       return fetch(req)
       
    }
+   
 }
