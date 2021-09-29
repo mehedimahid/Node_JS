@@ -9,7 +9,7 @@
                   <div class="d-flex">
                      <small>
                         <%= moment(post.createdAt) %> ,
-                        Post By <%= post.author.username %>,
+                        Post By <a href="/author/<%= post.author._id %> "><%= post.author.username %></a>,
                         <%= post.readTime %>
                      </small>
 
@@ -100,7 +100,7 @@
 <!-- <script src="/scripts/likeDislike.js"></script>
 <script src="/scripts/bookmarks.js"></script>
 <script src="/scripts/comment.js"></script> -->
-<script src="/scripts/singlePages.js.js"></script>
+<script src="/scripts/singlePages.js"></script>
 </body>
 
 </html>

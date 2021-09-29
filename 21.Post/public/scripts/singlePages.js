@@ -3,37 +3,37 @@ window.onload = function () {
     const comment = document.getElementById('comment')
     const commentHolder = document.getElementById('commentHolder')
     const likeBtn = document.getElementById('likeBtn')
-   const dislikeBtn = document.getElementById('dislikeBtn')
+    const dislikeBtn = document.getElementById('dislikeBtn')
+    ;
+    [...bookmarks].forEach(bookmark => {
+        bookmark.style.cursor = 'pointer'
+        bookmark.addEventListener('click', function (e) {
+            let target = e.target.parentElement
 
-    ;[...bookmarks].forEach(bookmark => {
-       bookmark.style.cursor = 'pointer'
-       bookmark.addEventListener('click', function (e) {
-          let target = e.target.parentElement
- 
-          let headers = new Headers()
-          headers.append('Accept', 'Aplication/JSON')
- 
-          let req = new Request(`/api/bookmarks/${target.dataset.post}`, {
-             method: 'GET',
-             headers,
-             mode: 'cors'
-          })
- 
-          fetch(req)
-             .then(res => res.json())
-             .then(data => {
-                if (data.bookmark) {
-                   target.innerHTML = '<i class="fas fa-bookmark"></i>'
-                } else {
-                   target.innerHTML = '<i class="far fa-bookmark"></i>'
-                }
-             })
-             .catch(e => {
-                console.error(e.response.data)
-                alert(e.response.data.error)
-             })
- 
-       })
+            let headers = new Headers()
+            headers.append('Accept', 'Aplication/JSON')
+
+            let req = new Request(`/api/bookmarks/${target.dataset.post}`, {
+                method: 'GET',
+                headers,
+                mode: 'cors'
+            })
+
+            fetch(req)
+                .then(res => res.json())
+                .then(data => {
+                    if (data.bookmark) {
+                        target.innerHTML = '<i class="fas fa-bookmark"></i>'
+                    } else {
+                        target.innerHTML = '<i class="far fa-bookmark"></i>'
+                    }
+                })
+                .catch(e => {
+                    console.error(e.response.data)
+                    alert(e.response.data.error)
+                })
+
+        })
     })
 
     //comment.js
@@ -98,58 +98,58 @@ window.onload = function () {
     //likeDislike.js
     likeBtn.addEventListener('click', function (e) {
         let postId = likeBtn.dataset.post
-  
+
         reqlikeDislike('likes', postId)
-           .then(res => res.json())
-           .then(data => {
-              let likeText = data.liked ? 'Liked' : 'Like'
-              likeText = likeText + ` (${data.totalLikes})`
-  
-              let disLiketext = `Dislike (${data.totalDislikes})`
-  
-              likeBtn.innerHTML = likeText
-              dislikeBtn.innerHTML = disLiketext
-           })
-           .catch(e => {
-              console.log(e)
-              alert(e.response.data.error)
-           })
-     })
-  
-     dislikeBtn.addEventListener('click', function (e) {
+            .then(res => res.json())
+            .then(data => {
+                let likeText = data.liked ? 'Liked' : 'Like'
+                likeText = likeText + ` (${data.totalLikes})`
+
+                let disLiketext = `Dislike (${data.totalDislikes})`
+
+                likeBtn.innerHTML = likeText
+                dislikeBtn.innerHTML = disLiketext
+            })
+            .catch(e => {
+                console.log(e)
+                alert(e.response.data.error)
+            })
+    })
+
+    dislikeBtn.addEventListener('click', function (e) {
         let postId = likeBtn.dataset.post
         reqlikeDislike('dislikes', postId)
-           .then(res => res.json())
-           .then(data => {
-              let dislikeText = data.disliked ? 'Disliked' : 'Dislike'
-              dislikeText = dislikeText + ` (${data.totalDislikes})`
-  
-              let liketext = `Like (${data.totalLikes})`
-  
-              likeBtn.innerHTML = liketext
-              dislikeBtn.innerHTML = dislikeText
-           })
-           .catch(e => {
-              console.log(e)
-              alert(e.response.data.error)
-           })
-     })
-  
-  
-     function reqlikeDislike(type, postId) {
+            .then(res => res.json())
+            .then(data => {
+                let dislikeText = data.disliked ? 'Disliked' : 'Dislike'
+                dislikeText = dislikeText + ` (${data.totalDislikes})`
+
+                let liketext = `Like (${data.totalLikes})`
+
+                likeBtn.innerHTML = liketext
+                dislikeBtn.innerHTML = dislikeText
+            })
+            .catch(e => {
+                console.log(e)
+                alert(e.response.data.error)
+            })
+    })
+
+
+    function reqlikeDislike(type, postId) {
         let headers = new Headers()
         headers.append('Accept', 'Application/JSON')
         headers.append('Content-type', 'Application/JSON')
-     
+
         let req = new Request(`/api/${type}/${postId}`, {
-           method: 'GET',
-           mode: "cors",
-           headers
+            method: 'GET',
+            mode: "cors",
+            headers
         })
-     
+
         return fetch(req)
-        
-     }
+
+    }
 }
 
 
