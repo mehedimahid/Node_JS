@@ -6,34 +6,35 @@
             <%- include('../../../partials/sidebar.ejs') %>
          </div>
          <div class="col-md-9 my-5">
-            <div class="card card-body">
+            <div class="card card-body text-center my-3">
                <h5>List Of My Posts</h5>
                <div class="row">
                   <% if(posts.length === 0 ){ %>
-                     <div class="text-center text-muted">
+                     <div class="text-center text-muted my-3">
                         <p>There are no posts available right now</p>
                         <a href="/posts/create" class="btn btn-primary btn-sm"> Create Post Now</a>
                      </div>
                      <% } else{ %>
-                        <% for(let post of posts.reverse()){ %>
-                           <div class="card col-sm-3 m-3">
-                              <% if(post.thumbnail){ %>
-                                 <img src="<%= post.thumbnail %>" alt="<%= post.title %>" class="card-img-top mt-3">
-                              <% } %>
-                              <div>
-                                 <a href="/posts/edit/<%= post._id %>" style="color: #222;">
-                                 <h5><%= post.title %> </h5>
-                                 </a>
-                              </div>
+                     <% for(let post of posts.reverse()){ %>
+                        <div class="card col-sm-3 m-3">
+                           <% if(post.thumbnail){ %>
+                              <img src="<%= post.thumbnail %>" alt="<%= post.title %>" class="card-img-top mt-3">
+                           <% } %>
+                           <div class="card-body">
+                              <a href="/posts/edit/<%= post._id %>" style="color: #222;">
+                                 <p>
+                                    <%= post.title %>
+                                 </p>
+                              </a>
                            </div>
-                        <% } %>
+                        </div>
                      <% } %>
+                  <% } %>
                </div>
             </div>
          </div>
       </div>
    </div>
-   <%- include('../../../partials/footer.ejs') %>
-      </body>
-
-      </html>
+<%- include('../../../partials/footer.ejs') %>
+</body>
+</html>

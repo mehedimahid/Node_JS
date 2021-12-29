@@ -7,10 +7,11 @@ const {
   createProfileGetContriller,
   createProfilePostContriller,
   editProfileGetContriller,
-  editProfilePostContriller
+  editProfilePostContriller,
+  bookmarkGetController
 } = require('../controller/dashboardController')
 
-
+router.get('/bookmark', isAuthenticated, bookmarkGetController)
 
 router.get('/create-profile', isAuthenticated, createProfileGetContriller)
 router.post('/create-profile', isAuthenticated, profileValidator, createProfilePostContriller)

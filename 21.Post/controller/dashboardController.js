@@ -113,7 +113,7 @@ exports.editProfileGetContriller = async (req, res, next) => {
     next(e)
   }
 }
-exports.editProfilePostContriller = async(req, res, next) => {
+exports.editProfilePostContriller = async (req, res, next) => {
   let errors = validationResult(req).formatWith(validationErrorFormatter)
   let {
     name,
@@ -173,4 +173,35 @@ exports.editProfilePostContriller = async(req, res, next) => {
   } catch (e) {
     next(e)
   }
+}
+
+exports.bookmarkGetController = async (req, res, next) => {
+  try {
+    let profile = await Profile.findOne({ user: req.user._id })
+      .populate({
+        path: 'bookmarks',
+        model: 'Post',
+        select: 'title thumbnail'
+      })
+
+    res.render('pages/dashboard/bookmark', {
+      title: 'Bookmark Pages',
+      flashMessage: Flash.getMessage(req),
+      posts: profile.bookmarks
+    })
+  } catch (e) {
+    next(e)
+  }
+}
+
+
+
+exports.commentGetController = async (req, res, next) => {
+  try {
+    let profile = await Profile.findOne({ user: req.user._id })
+    let comment = await Comment.find({ post: { $in: profile.post } })
+  } catch (e) {
+    next(e)
+  }
+
 }
