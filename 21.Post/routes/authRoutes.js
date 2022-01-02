@@ -1,24 +1,31 @@
-const route = require('express').Router()
+const router = require('express').Router()
 
 const signupValidator = require('../validetor/auth/signupValidator')
 const loginValidator = require('../validetor/auth/loginValidator')
-const {isUnAuthenticated} = require('../middleware/authMiddleware')
+const {
+  isUnAuthenticated,
+  isAuthenticated
+} = require('../middleware/authMiddleware')
 const {
   signupGetController,
   signupPostController,
   loginGetController,
   loginPostController,
-  logoutController
-
+  logoutController,
+  changePasswordGetController,
+  changePasswordPostController
 } = require('../controller/authController')
 
 
-route.get('/signup',isUnAuthenticated, signupGetController)
-route.post('/signup',isUnAuthenticated, signupValidator, signupPostController)
+router.get('/signup',isUnAuthenticated, signupGetController)
+router.post('/signup',isUnAuthenticated, signupValidator, signupPostController)
 
-route.get('/login',isUnAuthenticated, loginGetController)
-route.post('/login',isUnAuthenticated, loginValidator, loginPostController)
+router.get('/login',isUnAuthenticated, loginGetController)
+router.post('/login',isUnAuthenticated, loginValidator, loginPostController)
 
-route.get('/logout', logoutController)
+router.get('/change-password', isAuthenticated, changePasswordGetController)
+router.post('/change-password', isAuthenticated, changePasswordPostController)
 
-module.exports = route
+router.get('/logout', logoutController)
+
+module.exports = router

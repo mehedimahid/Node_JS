@@ -1,6 +1,7 @@
 const { validationResult } = require('express-validator')
 const Flash = require('../utils/Flash')
 const User = require('../model/User')
+const Comment = require('../model/Comment')
 const Profile = require('../model/Profile')
 const validationErrorFormatter = require('../utils/validationErrorFormatter')
 const { name } = require('ejs')
@@ -199,7 +200,25 @@ exports.bookmarkGetController = async (req, res, next) => {
 exports.commentGetController = async (req, res, next) => {
   try {
     let profile = await Profile.findOne({ user: req.user._id })
-    let comment = await Comment.find({ post: { $in: profile.post } })
+    let comments = await Comment.find({ post: { $in: profile.posts } })
+      .populate({
+        path: 'post',
+        select: 'title'
+      })
+      .populate({
+        path: 'user',
+        select: 'username profilePics'
+      })
+      .populate({
+        path: 'replies.user',
+        select: 'username profilePics'
+      })
+
+    res.render('pages/dashboard/comments', {
+      title: 'My recently comments',
+      flashMessage: Flash.getMessage(req),
+      comments
+    })
   } catch (e) {
     next(e)
   }

@@ -43,7 +43,7 @@ exports.signupPostController = async (req, res, next) => {
     })
 
     await user.save()
-    req.flash('success','User Created  Succesdfully' )
+    req.flash('success', 'User Created  Succesdfully')
     res.redirect('/auth/login')
   } catch (e) {
     next(e)
@@ -51,11 +51,11 @@ exports.signupPostController = async (req, res, next) => {
 }
 
 exports.loginGetController = (req, res, next) => {
-  res.render('pages/auth/login', 
-  {
-     title: 'login To Your Account', 
-     error: {},
-     flashMessage: Flash.getMessage(req) 
+  res.render('pages/auth/login',
+    {
+      title: 'login To Your Account',
+      error: {},
+      flashMessage: Flash.getMessage(req)
     })
 }
 
@@ -79,22 +79,22 @@ exports.loginPostController = async (req, res, next) => {
     if (!user) {
       req.flash('fail', 'Please Provide Valid Credentials')
       return res.render('pages/auth/login',
-      {
-        title: 'Logged in to your account',
-        error:{},
-        flashMessage: Flash.getMessage(req)
-      })
+        {
+          title: 'Logged in to your account',
+          error: {},
+          flashMessage: Flash.getMessage(req)
+        })
     }
 
     let match = await bcrypt.compare(password, user.password)
     if (!match) {
       req.flash('fail', 'Please Provide Valid Credentials')
       return res.render('pages/auth/login',
-      {
-        title: 'Logged in to your account',
-        error: {},
-        flashMessage: Flash.getMessage(req)
-      })
+        {
+          title: 'Logged in to your account',
+          error: {},
+          flashMessage: Flash.getMessage(req)
+        })
     }
 
     req.session.isLoggedIn = true
@@ -120,4 +120,37 @@ exports.logoutController = (req, res, next) => {
     }
     return res.redirect('/auth/login')
   })
+}
+
+exports.changePasswordGetController = async (req, res, next) => {
+  res.render('pages/auth/changePassword', {
+    title: 'Change Password',
+    flashMessage: Flash.getMessage(req)
+  })
+}
+
+exports.changePasswordPostController = async (req, res, next) => {
+  let { oldPassword, newPassword, confirmPassword } = req.body
+
+  if (newPassword !== confirmPassword) {
+    req.flash('fail', 'Password Does Not Match')
+    return res.redirect('/auth/change-password')
+  }
+
+  try {
+    let match = await bcrypt.compare(oldPassword, req.user.password)
+    if (!match) {
+      req.flash('fail', 'invalid OldPassword')
+      return res.redirect('/auth/change-password')
+    }
+    let hash = await bcrypt.hash(newPassword, 11)
+    await User.findOneAndUpdate(
+      { _id: req.user._id },
+      { $set: { password: hash } }
+    )
+    req.flash('success', 'Password Change Successfully')
+    return res.redirect('/auth/change-password')
+  } catch (e) {
+    next(e)
+  }
 }
