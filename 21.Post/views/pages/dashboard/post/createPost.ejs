@@ -6,39 +6,43 @@
                 <%- include('../../../partials/sidebar.ejs') %>
             </div>
             <div class="col-md-9 my-5">
-                <div class="card card-body mx-5 py-5">
-                    <h5 class="my-3">Create A New Post</h5>
-                    <form action="/posts/create" method="POST" enctype="multipart/form-data">
-                        <div class="form-group ">
-                            <label for="title">Enter Your Post Title</label>
-                            <input type="text" id="title" name="title"
-                                class="form-control <%= error.title ? 'is-invalid': '' %>"
-                                value="<%= value.title ? value.title : '' %> ">
-                            <div class="invalid-feedback">
-                                <%= error.title %>
+               <div class="row">
+                   <div class="col-md-9 offset-md-2">
+                    <div class="card card-body mx-5 ">
+                        <h5 class="my-3">Create A New Post</h5>
+                        <form action="/posts/create" method="POST" enctype="multipart/form-data">
+                            <div class="form-group ">
+                                <label for="title">Enter Your Post Title</label>
+                                <input type="text" id="title" name="title"
+                                    class="form-control <%= error.title ? 'is-invalid': '' %>"
+                                    value="<%= value.title ? value.title : '' %> ">
+                                <div class="invalid-feedback">
+                                    <%= error.title %>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="tiny-mce-post-body">Enter Your Post Body</label>
-                            <textarea name="body" id="tiny-mce-post-body"
-                                class="form-control <%= error.body ? 'is-invalid': '' %>"><%- value.body ? value.body : '' %> </textarea>
-                            <div class="invalid-feedback">
-                                <%= error.body %>
+                            <div class="form-group ">
+                                <label for="tiny-mce-post-body">Enter Your Post Body</label>
+                                <textarea name="body" id="tiny-mce-post-body"
+                                    class="form-control <%= error.body ? 'is-invalid': '' %>"><%- value.body ? value.body : '' %> </textarea>
+                                <div class="invalid-feedback">
+                                    <%= error.body %>
+                                </div>
                             </div>
-                        </div>
-                        <div class="form-group ">
-                            <label for="tags">Enter Some Tags(Max 10)</label>
-                            <input type="text" name="tags" id="tags" class="form-control"
-                                placeholder="tag1, tag2....tag10" value="<%= value.tags ? value.tags : '' %>">
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <input type="file" name="post-thumbnail" class="form-control" id="inputGroupFile">
-                            <label class="input-group-text" for="inputGroupFile">Upload</label>
-                        </div>
-                        <input type="submit" class="btn btn-primary" value="Create Post">
-                    </form>
-                </div>
+                            <div class="form-group ">
+                                <label for="tags">Enter Some Tags(Max 10)</label>
+                                <input type="text" name="tags" id="tags" class="form-control"
+                                    placeholder="tag1, tag2....tag10" value="<%= value.tags ? value.tags : '' %>">
+                            </div>
+    
+                            <div class="input-group mb-3">
+                                <input type="file" name="post-thumbnail" class="form-control" id="inputGroupFile">
+                                <label class="input-group-text" for="inputGroupFile">Upload</label>
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Create Post">
+                        </form>
+                    </div>
+                   </div>
+               </div>
             </div>
         </div>
     </div>

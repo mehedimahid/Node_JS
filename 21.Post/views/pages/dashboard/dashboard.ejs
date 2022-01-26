@@ -3,19 +3,87 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-md-2">
-        <%- include('../../partials/sidebar.ejs') %> 
+        <%- include('../../partials/sidebar.ejs') %>
       </div>
       <div class="col-md-10">
         <div class="row">
-          <div class="col-md-8 offset-md-2">
-            <h1 class="text-center display-4">My Dashboard</h1>
+          <div class="col-md-8 offset-md-2 my-5">
+            <h5>My recently created post</h5>
+            <div class="row">
+              <% if(posts.length === 0){ %> 
+                 <div class="text-center text-muted">
+                    <p>There is no post available right now</p>
+                    <!-- <a href="/posts/create" class="btn btn-primary btn-sm">Create Post now</a> -->
+                 </div>
+              <% }else { %>
+                 <% for(let post of posts){ %> 
+                    <div class="card col-sm-3 m-2">
+                       <% if(post.thumbnail){ %> 
+                          <img src="<%= post.thumbnail %> " alt="<%= post.title %> " class="card-img-top mt-3">
+                       <% } %> 
+                       <div class="card-body p-0">
+                          <a href="/explorer/<%= post.id %> " style="color: #222;">
+                             <p class="my-2"><%= post.title %> </p>
+                          </a>
+                       </div>
+                    </div>
+                 <% } %> 
+              <% } %> 
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-8 offset-md-2 my-5">
+            <h5>My recently created bookmarks</h5>
+            <div class="row">
+              <% if(bookmarks.length === 0){ %> 
+                 <div class="text-center text-muted">
+                    <p>There is no post available right now</p>
+                    <!-- <a href="/posts/create" class="btn btn-primary btn-sm">Create Post now</a> -->
+                 </div>
+              <% }else { %>
+                 <% for(let post of bookmarks){ %> 
+                    <div class="card col-sm-3 m-2">
+                       <% if(post.thumbnail){ %> 
+                          <img src="<%= post.thumbnail %> " alt="<%= post.title %> " class="card-img-top mt-3">
+                       <% } %> 
+                       <div class="card-body p-0">
+                          <a href="/explorer/<%= post.id %> " style="color: #222;">
+                             <p class="my-2"><%= post.title %> </p>
+                          </a>
+                       </div>
+                    </div>
+                  <% } %> 
+                <% } %> 
+              </div>
           </div>
         </div>
       </div>
     </div>
 
-    <%- include('../../partials/footer.ejs') %>
+    <div id="crop-modal" class="modal" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Resize Your Image</h5>
+            <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div id="cropped-image"></div>
+          </div>
+          <div class="modal-footer">
+            <button id="upload-image" type="button" class="btn btn-primary">Upload image</button>
+            <button id="cancel-cropping" type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%- include('../../partials/footer.ejs') %>
 
-      </body>
+    </body>
 
-      </html>
+    </html>

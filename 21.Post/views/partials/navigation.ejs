@@ -8,11 +8,11 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="/dashboard">Dashboard</a>
+          <a class="nav-link" href="/explorer">Explorer</a>
         </li>
         <% if(isLoggedIn){ %>
           <li class="nav-item">
-            <a class="nav-link" href="/auth/logout">Logout</a>
+            <a class="nav-link" href="/dashboard">Dashboard</a>
           </li>
           <% }else{ %>
             <li class="nav-item">
@@ -22,7 +22,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/auth/signup">Signup</a>
             </li>
-            <% } %>
+          <% } %>
       </ul>
       <form class="form-inline d-flex" method="GET" action="/search">
         <input class="form-control me-2" name="term" type="search" placeholder="Search" aria-label="Search">

@@ -53,6 +53,30 @@
                      <% } %> 
                   </div>
                </div>
+               <div>
+                  <p>Post create by this author</p>
+                  <div class="row">
+                     <% if(author.profile.posts.length === 0){ %> 
+                        <div class="text-center text-muted">
+                           <p>There is no post available right now</p>
+                           <!-- <a href="/posts/create" class="btn btn-primary btn-sm">Create Post now</a> -->
+                        </div>
+                     <% }else { %>
+                        <% for(let post of author.profile.posts.reverse()){ %> 
+                           <div class="card col-sm-5 m-2">
+                              <% if(post.thumbnail){ %> 
+                                 <img src="<%= post.thumbnail %> " alt="<%= post.title %> " class="card-img-top mt-3">
+                              <% } %> 
+                              <div class="card-body p-0">
+                                 <a href="/explorer/<%= post.id %> " style="color: #222;">
+                                    <p class="my-2"><%= post.title %> </p>
+                                 </a>
+                              </div>
+                           </div>
+                        <% } %> 
+                     <% } %> 
+                  </div>
+               </div>
             </div>
          </div>
       </div>

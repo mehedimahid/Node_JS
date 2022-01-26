@@ -6,41 +6,46 @@
             <%- include('../../../partials/sidebar.ejs') %>
          </div>
          <div class="col-md-9 my-5">
-            <div class="card card-body mx-5 py-5">
-               <h5 class="my-3">Update Your Post</h5>
-               <form action="/posts/edit/<%= post._id %> " method="POST" enctype="multipart/form-data">
-                  <div class="form-group ">
-                     <label for="title">Enter Your Post Title</label>
-                     <input type="text" id="title" name="title"
-                        class="form-control <%= error.title ? 'is-invalid': '' %>" value="<%=post.title %>">
-                     <div class="invalid-feedback">
-                        <%= error.title %>
-                     </div>
-                  </div>
-                  <div class="form-group ">
-                     <label for="tiny-mce-post-body">Enter Your Post Body</label>
-                     <textarea name="body" id="tiny-mce-post-body"
-                        class="form-control <%= error.body ? 'is-invalid': '' %>"><%- post.body %></textarea>
-                     <div class="invalid-feedback">
-                        <%= error.body %>
-                     </div>
-                  </div>
-                  <div class="form-group ">
-                     <label for="tags">Enter Some Tags(Max 10)</label>
-                     <input type="text" name="tags" id="tags" class="form-control" placeholder="tag1, tag2....tag10"
-                        value="<%= post.tags.length > 0 ? post.tags.join(', ') : '' %>">
-                  </div>
-                  <% if(post.thumbnail){ %>
-                     <label> Post Thumbnail</label>
-                     <img src="<%= post.thumbnail %>" id="thumbnail" alt="Post Thumbnail" class="img-fluid mb-4">
-                     <% } %>
-                        <div class="input-group mb-3">
-                           <input type="file" name="post-thumbnail" class="form-control" id="inputGroupFile">
-                           <label class="input-group-text" for="inputGroupFile">Upload</label>
+            <div class="row">
+               <div class="col-md-9 offset-md-2">
+                  <div class="card card-body mx-5 py-5">
+                     <h5 class="my-3">Update Your Post</h5>
+                     <form action="/posts/edit/<%= post._id %> " method="POST" enctype="multipart/form-data">
+                        <div class="form-group ">
+                           <label for="title">Enter Your Post Title</label>
+                           <input type="text" id="title" name="title"
+                              class="form-control <%= error.title ? 'is-invalid': '' %>" value="<%=post.title %>">
+                           <div class="invalid-feedback">
+                              <%= error.title %>
+                           </div>
                         </div>
-                        <input type="submit" class="btn btn-primary" value="Update Post">
-                        <a class="btn btn-danger" href="/posts/delete/<%= post._id %>"> Delete Post</a>
-               </form>
+                        <div class="form-group ">
+                           <label for="tiny-mce-post-body">Enter Your Post Body</label>
+                           <textarea name="body" id="tiny-mce-post-body"
+                              class="form-control <%= error.body ? 'is-invalid': '' %>"><%- post.body %></textarea>
+                           <div class="invalid-feedback">
+                              <%= error.body %>
+                           </div>
+                        </div>
+                        <div class="form-group ">
+                           <label for="tags">Enter Some Tags(Max 10)</label>
+                           <input type="text" name="tags" id="tags" class="form-control"
+                              placeholder="tag1, tag2....tag10"
+                              value="<%= post.tags.length > 0 ? post.tags.join(', ') : '' %>">
+                        </div>
+                        <% if(post.thumbnail){ %>
+                           <label> Post Thumbnail</label>
+                           <img src="<%= post.thumbnail %>" id="thumbnail" alt="Post Thumbnail" class="img-fluid mb-4">
+                           <% } %>
+                           <div class="input-group mb-3">
+                              <input type="file" name="post-thumbnail" class="form-control" id="inputGroupFile">
+                              <label class="input-group-text" for="inputGroupFile">Upload</label>
+                           </div>
+                           <input type="submit" class="btn btn-primary" value="Update Post">
+                           <a class="btn btn-danger" href="/posts/delete/<%= post._id %>"> Delete Post</a>
+                     </form>
+                  </div>
+               </div>
             </div>
          </div>
       </div>
