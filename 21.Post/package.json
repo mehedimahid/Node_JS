@@ -4,7 +4,8 @@
   "description": "",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "node app.js",
+    "dev": "nodemoon app.js" 
   },
   "keywords": [],
   "author": "",
@@ -31,5 +32,8 @@
   },
   "devDependencies": {
     
+  },
+  "engines": {
+    "node": "14.17.6"
   }
 }
