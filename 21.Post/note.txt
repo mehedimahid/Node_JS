@@ -1,0 +1,14 @@
+# api,
+# api controller,
+#controller,
+#ejs.
+#Express,
+#React,
+#Middleware,
+#Route,
+#mongoose,
+#Model,
+#model Schema,
+#Hash Password/bcrypt,
+#Chalk,
+#Heroku
